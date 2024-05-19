@@ -3,3 +3,40 @@
     color: grey;
     
 }
+
+.dltBtn{
+    
+    border-color: transparent;
+    background-color: #a8a6ac;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 5px 5px 15px -5px rgba(0,0,0,0.3);
+}
+.dltBtn:hover{
+    background-color: rgb(236, 30, 30);
+}
+.dltIcon{
+    display: flex;
+    align-items: center;
+}
+.list{
+    list-style: none;
+    margin-left: -21px;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #6b6a6d;
+    text-transform: uppercase;
+}
+.listContainer{
+    width: 89.5%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ic:hover{
+    color: #8566aa;
+}
+

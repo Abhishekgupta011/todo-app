@@ -1,11 +1,13 @@
 import TodoList from "@/Components/Todos/TodoList";
 import { Fragment } from "react";
-
+import classes from './index.module.css'
 const TodoPage = ()=>{
     return(
-        <Fragment>
-            <h1>Todo Page</h1>
+        <Fragment >
+        <div className={classes.main}>
             <TodoList/>
+        </div>
+          
         </Fragment>
     )
 }

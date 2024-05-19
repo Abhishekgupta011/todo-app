@@ -1,6 +1,8 @@
 import { Fragment, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
-
+import classes from './TodoList.module.css';
+import Card from "../Ui/Card";
+import AddIcon from '@mui/icons-material/Add';
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
     const todoInputRef = useRef();
@@ -33,8 +35,18 @@ const TodoList = () => {
     };
 
     return (
-        <Fragment>
-            <h1>Todo List</h1>
+        <Card className={classes.container}>
+            <h1 className={classes.title}>Todo List</h1>
+            
+            <form onSubmit={todoSubmitHandler} className={classes.form}>
+                <input type="text" 
+                name="text" 
+                id="todoinput" 
+                ref={todoInputRef} 
+                className={classes.text} 
+                placeholder="Add Items"/>
+                <button type="submit" className={classes.addBtn} ><span className={classes.addicon}><AddIcon/></span></button>
+            </form>
             <ul>
                 {todos.map((todo) => (
                     <TodoItem
@@ -46,11 +58,7 @@ const TodoList = () => {
                     />
                 ))}
             </ul>
-            <form onSubmit={todoSubmitHandler}>
-                <input type="text" name="text" id="todoinput" ref={todoInputRef} />
-                <button type="submit">Add</button>
-            </form>
-        </Fragment>
+        </Card>
     );
 }
 

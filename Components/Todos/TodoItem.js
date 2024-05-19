@@ -1,22 +1,27 @@
 import { Fragment } from "react";
-import Card from "../Ui/Card";
-import { classes } from './TodoItem.module.css'
+import classes from './TodoItem.module.css'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 const TodoItem = (props) => {
     return (
-        <Card>
-            <li className={` ${props.completed ? 'completed' : ''}`} style={{listStyle: 'none'}}>
-
+        <Fragment>
+            <li className={classes.list}>
+            <div className={classes.listContainer}>
+            <div>
             <input 
                     type="checkbox" 
                     checked={props.completed} 
                     onChange={props.onToggle} 
                 />
+                
                 <span onClick={props.onToggle} style={{ textDecoration: props.completed ? 'line-through' : 'none' }}>
                     {props.text}
                 </span>
-                <button onClick={props.onDelete}>Delete</button>
+                </div>
+                <button onClick={props.onDelete} className={classes.dltBtn}><span className={classes.dltIcon}><DeleteOutlineIcon/></span></button>
+                </div>
+                
             </li>
-        </Card>
+        </Fragment>
     );
 }
 
