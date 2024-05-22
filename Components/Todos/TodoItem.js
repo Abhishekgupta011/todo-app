@@ -14,8 +14,9 @@ const TodoItem = (props) => {
                 />
                 
                 <span onClick={props.onToggle} style={{ textDecoration: props.completed ? 'line-through' : 'none' }}>
-                    {props.text}
+                    {props.text} 
                 </span>
+                <span>{props.completed ? 'Completed' : props.status}</span>
                 </div>
                 <button onClick={props.onDelete} className={classes.dltBtn}><span className={classes.dltIcon}><DeleteOutlineIcon/></span></button>
                 </div>

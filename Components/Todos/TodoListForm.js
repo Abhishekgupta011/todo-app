@@ -15,7 +15,8 @@ const TodoList = (props) => {
 
         const newTodo = {
             text: enteredText,
-            completed: false
+            completed: false,
+            status: 'Uncompleted',
         };
         props.onAddTodos(newTodo);
         todoInputRef.current.value = '';
