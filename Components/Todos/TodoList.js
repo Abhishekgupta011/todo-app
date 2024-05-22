@@ -1,65 +1,63 @@
-import { Fragment, useRef, useState } from "react";
+import React, { useState } from "react";
 import TodoItem from "./TodoItem";
-import classes from './TodoList.module.css';
-import Card from "../Ui/Card";
-import AddIcon from '@mui/icons-material/Add';
-const TodoList = () => {
-    const [todos, setTodos] = useState([]);
-    const todoInputRef = useRef();
+import PropTypes from "prop-types";
 
-    const todoSubmitHandler = (event) => {
-        event.preventDefault();
-        const enteredText = todoInputRef.current.value;
-        if (enteredText.trim().length === 0) {
-            return;
-        }
+const TodoList = (props) => {
+    const [todos, setTodos] = useState(props.initialTodos || []);
 
-        const newTodo = {
-            text: enteredText,
-            id: Math.random().toString(),
-            completed: false
-        };
+    const deleteTodoHandler = async (todoId) => {
+        // Simulate API call
+        // const response = await fetch(`/api/new-todo`, {
+        //     method: 'DELETE',
+        // });
 
-        setTodos((prevTodos) => [...prevTodos, newTodo]);
-        todoInputRef.current.value = '';
+        // if (response.ok) {
+        //     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== todoId));
+        // }
+
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== todoId));
     };
 
-    const deleteTodoHandler = (todoId) => {
-        setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== todoId));
-    };
+    const toggleTodoHandler = async (todoId) => {
+        // Simulate API call
+        // const todo = todos.find((todo) => todo.id === todoId);
+        // const updatedTodo = { ...todo, completed: !todo.completed };
 
-    const toggleTodoHandler = (todoId) => {
-        setTodos((prevTodos) => prevTodos.map(todo =>
-            todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-        ));
+        // const response = await fetch(`/api/new-todo/${todoId}`, {
+        //     method: 'PUT',
+        //     body: JSON.stringify(updatedTodo),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     }
+        // });
+
+        // if (response.ok) {
+        //     setTodos((prevTodos) => prevTodos.map((todo) => todo.id === todoId ? updatedTodo : todo));
+        // }
+
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
     };
 
     return (
-        <Card className={classes.container}>
-            <h1 className={classes.title}>Todo List</h1>
-            
-            <form onSubmit={todoSubmitHandler} className={classes.form}>
-                <input type="text" 
-                name="text" 
-                id="todoinput" 
-                ref={todoInputRef} 
-                className={classes.text} 
-                placeholder="Add Items"/>
-                <button type="submit" className={classes.addBtn} ><span className={classes.addicon}><AddIcon/></span></button>
-            </form>
-            <ul>
-                {todos.map((todo) => (
-                    <TodoItem
-                        key={todo.id}
-                        text={todo.text}
-                        completed={todo.completed}
-                        onDelete={() => deleteTodoHandler(todo.id)}
-                        onToggle={() => toggleTodoHandler(todo.id)}
-                    />
-                ))}
-            </ul>
-        </Card>
+        <ul>
+            {todos.map((todo) => (
+                <TodoItem
+                    key={todo.id}
+                    id={todo.id}
+                    text={todo.text}
+                    completed={todo.completed}
+                    onDelete={() => deleteTodoHandler(todo.id)}
+                    onToggle={() => toggleTodoHandler(todo.id)}
+                />
+            ))}
+        </ul>
     );
-}
+};
+
+
 
 export default TodoList;
