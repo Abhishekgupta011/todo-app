@@ -1,0 +1,54 @@
+/* TodoListComponent.module.css */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: grey;
+}
+
+.status {
+    align-items: center;
+}
+
+.dltBtn {
+    background-color: #a8a6ac;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+.dltBtn:hover {
+    background-color: rgb(236, 30, 30);
+}
+
+.dltIcon {
+    display: flex;
+    align-items: center;
+}
+
+.uc {
+    color: red;
+    font-weight: bold;
+}
+
+.c {
+    color: green;
+    font-weight: bold;
+}

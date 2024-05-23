@@ -39,4 +39,17 @@
 .ic:hover{
     color: #8566aa;
 }
+.uc {
+    color: red;
+    font-weight: bolder;
+}
+
+.c {
+    color: green;
+    font-weight: bolder;
+}
+.status{
+    align-items: initial;
+
+}
 

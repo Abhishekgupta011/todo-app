@@ -33,6 +33,14 @@ export default async (req, res) => {
             { $set: { text, completed, status } }
         );
         res.status(200).json({ message: 'Updated successfully' });
+    }  else if (req.method === 'GET') {
+        const completedTodos = await collection.find({ status: 'Completed' }).toArray();
+        res.status(200).json(completedTodos.map(todo => ({
+            id: todo._id.toString(),
+            text: todo.text,
+            completed: todo.completed,
+            status: todo.status,
+        })));
     } else {
         res.status(405).json({ message: 'Method not allowed' });
     }

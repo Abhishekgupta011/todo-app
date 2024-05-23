@@ -13,10 +13,13 @@ const TodoItem = ({  text, completed, status, onDelete, onToggle }) => {
                             checked={completed}
                             onChange={onToggle}
                         />
-                        <span onClick={onToggle} style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+                        <span onClick={onToggle}>
                             {text}
                         </span>
-                        <span>{status}</span>
+                        </div>
+                        <div className={classes.status}>
+                        <span className={status === "Uncompleted" ? classes.uc : classes.c}>{status}</span>
+
                     </div>
                     <button onClick={onDelete} className={classes.dltBtn}>
                         <span className={classes.dltIcon}><DeleteOutlineIcon /></span>
