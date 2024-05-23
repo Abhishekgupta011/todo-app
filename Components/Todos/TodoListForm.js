@@ -1,9 +1,10 @@
+// TodoListForm.js
 import { useRef } from "react";
 import classes from './TodoListForm.module.css';
 import Card from "../Ui/Card";
 import AddIcon from '@mui/icons-material/Add';
 
-const TodoList = (props) => {
+const TodoListForm = (props) => {
     const todoInputRef = useRef();
 
     const todoSubmitHandler = (event) => {
@@ -22,12 +23,9 @@ const TodoList = (props) => {
         todoInputRef.current.value = '';
     };
 
-   
-
     return (
         <>
             <h1 className={classes.title}>Todo List</h1>
-            
             <form onSubmit={todoSubmitHandler} className={classes.form}>
                 <input 
                     type="text" 
@@ -38,12 +36,11 @@ const TodoList = (props) => {
                     placeholder="Add Items" 
                 />
                 <button type="submit" className={classes.addBtn}>
-                    <span className={classes.addicon}><AddIcon/></span>
+                    <span className={classes.addicon}><AddIcon /></span>
                 </button>
             </form>
-            
         </>
     );
 }
 
-export default TodoList;
+export default TodoListForm;

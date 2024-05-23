@@ -1,29 +1,30 @@
-import { Fragment } from "react";
-import classes from './TodoItem.module.css'
+import { Fragment } from 'react';
+import classes from './TodoItem.module.css';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-const TodoItem = (props) => {
+
+const TodoItem = ({  text, completed, status, onDelete, onToggle }) => {
     return (
         <Fragment>
-            <li className={classes.list}>
-            <div className={classes.listContainer}>
-            <div>
-            <input 
-                    type="checkbox" 
-                    checked={props.completed} 
-                    onChange={props.onToggle} 
-                />
-                
-                <span onClick={props.onToggle} style={{ textDecoration: props.completed ? 'line-through' : 'none' }}>
-                    {props.text} 
-                </span>
-                <span>{props.completed ? 'Completed' : props.status}</span>
+            <li className={classes.list} >
+                <div className={classes.listContainer}>
+                    <div>
+                        <input
+                            type="checkbox"
+                            checked={completed}
+                            onChange={onToggle}
+                        />
+                        <span onClick={onToggle} style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+                            {text}
+                        </span>
+                        <span>{status}</span>
+                    </div>
+                    <button onClick={onDelete} className={classes.dltBtn}>
+                        <span className={classes.dltIcon}><DeleteOutlineIcon /></span>
+                    </button>
                 </div>
-                <button onClick={props.onDelete} className={classes.dltBtn}><span className={classes.dltIcon}><DeleteOutlineIcon/></span></button>
-                </div>
-                
             </li>
         </Fragment>
     );
-}
+};
 
 export default TodoItem;

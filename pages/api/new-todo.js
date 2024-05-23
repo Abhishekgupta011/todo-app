@@ -1,39 +1,39 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient, ObjectId } from 'mongodb';
 
-const Handler = async(req , res)=>{
-    if(req.method ==="POST"){
-        const data = req.body;
-        const client = await MongoClient.connect('mongodb+srv://ag25061999:w6yqhJ53ZPA7qz5R@cluster3.0ydqlvp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster3')
-        const db = client.db()
-        const todosCollection = db.collection('todo');
-        const result = await todosCollection.insertOne(data);
-        console.log(result);
-        client.close();
-        res.status(200).json({message: 'Todo Added Successfully' , result: result})
-    } else if (req.method === "PUT") {
-        const data = req.body;
-        const client = await MongoClient.connect('mongodb+srv://ag25061999:w6yqhJ53ZPA7qz5R@cluster3.0ydqlvp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster3');
-        const db = client.db();
-        const todosCollection = db.collection('todo');
-        const result = await todosCollection.updateOne({ _id: new ObjectId(data.id) }, { $set: {completed : data.completed , status:data.status} });
-        client.close();
-        res.status(200).json({ message: 'Todo Updated Successfully', result });
-    }else if (req.method === "DELETE") {
-        const data = req.body;
-        const client = await MongoClient.connect('mongodb+srv://ag25061999:w6yqhJ53ZPA7qz5R@cluster3.0ydqlvp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster3');
-        const db = client.db();
-        const todosCollection = db.collection('todo');
-        const result = await todosCollection.deleteOne({ _id: new ObjectId(data.id) });
-        client.close();
-        if (result.deletedCount === 1) {
-            res.status(200).json({ message: 'Todo Deleted Successfully' });
-        } else {
-            res.status(404).json({ message: 'Todo Not Found' });
-        }
-    } else {
-        res.status(405).json({ message: 'Method Not Allowed' });
+const uri = 'mongodb+srv://ag25061999:ww0gYijJ4Vmoo2kH@cluster3.0ydqlvp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster3';
+let client;
+
+async function connectToDatabase() {
+    if (!client) {
+        client = new MongoClient(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        await client.connect();
     }
-    
+    return client.db();
 }
 
-export default Handler;
+export default async (req, res) => {
+    const db = await connectToDatabase();
+    const collection = db.collection('todo');
+
+    if (req.method === 'POST') {
+        const { text, completed, status } = req.body;
+        const result = await collection.insertOne({ text, completed, status });
+        res.status(201).json({ id: result.insertedId.toString() });
+    } else if (req.method === 'DELETE') {
+        const { id } = req.body;
+        await collection.deleteOne({ _id: new ObjectId(id) });
+        res.status(200).json({ message: 'Deleted successfully' });
+    } else if (req.method === 'PUT') {
+        const { id, text, completed, status } = req.body;
+        await collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { text, completed, status } }
+        );
+        res.status(200).json({ message: 'Updated successfully' });
+    } else {
+        res.status(405).json({ message: 'Method not allowed' });
+    }
+};
